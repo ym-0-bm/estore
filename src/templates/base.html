@@ -11,9 +11,26 @@
 </head>
 
 <body>
-    <!-- Inclure la barre de navigation -->
-    {% include 'index.html' %}
 
+  <!-- Inclure la barre de navigation -->
+  <!--  Body Wrapper -->
+  <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+    data-sidebar-position="fixed" data-header-position="fixed">
+    {% include 'partials/sidebar.html' %}
+    <!--  Main wrapper -->
+    <div class="body-wrapper">
+      {% include 'partials/header.html' %}
+      {% include 'index.html' %}
+    </div>
+  </div>
 </body>
 
+<script src="{% static 'libs/jquery/dist/jquery.min.js' %}"></script>
+<script src="{% static 'libs/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'js/sidebarmenu.js' %}"></script>
+<script src="{% static 'js/app.min.js' %}"></script>
+<script src="{% static 'libs/apexcharts/dist/apexcharts.min.js' %}"></script>
+<script src="{% static 'libs/simplebar/dist/simplebar.js' %}"></script>
+<script src="{% static 'js/dashboard.js' %}"></script>
+<script src="https://kit.fontawesome.com/6e8f3b4a1f.js" crossorigin="anonymous"></script>
 </html>
