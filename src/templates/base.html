@@ -12,17 +12,21 @@
 
 <body>
 
-  <!-- Inclure la barre de navigation -->
-  <!--  Body Wrapper -->
-  <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
-    data-sidebar-position="fixed" data-header-position="fixed">
-    {% include 'partials/sidebar.html' %}
-    <!--  Main wrapper -->
-    <div class="body-wrapper">
-      {% include 'partials/header.html' %}
-      {% include 'index.html' %}
+  {% if user.is_authenticated %}
+    <!-- Inclure la barre de navigation -->
+    <!--  Body Wrapper -->
+    <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+      data-sidebar-position="fixed" data-header-position="fixed">
+      {% include 'partials/sidebar.html' %}
+      <!--  Main wrapper -->
+      <div class="body-wrapper">
+        {% include 'partials/header.html' %}
+        {% include 'index.html' %}
+        {% block content %}
+        {% endblock content %}
+      </div>
     </div>
-  </div>
+  {% endif %}
 </body>
 
 <script src="{% static 'libs/jquery/dist/jquery.min.js' %}"></script>
