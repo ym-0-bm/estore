@@ -1,4 +1,5 @@
 {% load static %}
+
 <!doctype html>
 <html lang="en">
 
@@ -21,38 +22,55 @@
           <div class="col-md-8 col-lg-6 col-xxl-3">
             <div class="card mb-0">
               <div class="card-body">
-                <a href="./index.html" class="text-nowrap logo-img text-center d-block py-3 w-100">
+                <a href="{% url 'home' %}" class="text-nowrap logo-img text-center d-block py-3 w-100">
                   <img src="{% static 'images/logos/dark-logo.svg' %}" width="180" alt="">
                 </a>
                 {% if user.is_authenticated %}
                   <h2 class="align-middle">Vous êtes déjà connecté, {{ request.user.username }}!</h2>
                   <div class="border-top pt-3 align-middle"> <br>
                       <a class="btn btn-primary" href="{% url 'home' %}">Acceuil</a> <br><br>
-                      <a class="btn btn-secondary" href="{% url 'logout' %}">Déconnexion</a>
+                      <a class="btn btn-link" href="{% url 'logout' %}">Déconnexion</a>
                   </div>
                 {% else %}
-                  <form>
+                  <form method="post">
+                    {% csrf_token %}
+                    {% if form.errors %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}" role="alert">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    {% if form.errors %}
+                      {% for field, errors in form.errors.items %}
+                          {% for error in errors %}
+                              <div class="alert alert-danger" role="alert">
+                                  {{ error }}
+                              </div>
+                          {% endfor %}
+                      {% endfor %}
+                    {% endif %}
                     <div class="mb-3">
                       <label for="exampleInputEmail1" class="form-label">Username</label>
-                      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                      <input type="email" class="form-control" id="exampleInputEmail1" name="username" aria-describedby="emailHelp">
                     </div>
                     <div class="mb-4">
                       <label for="exampleInputPassword1" class="form-label">Password</label>
-                      <input type="password" class="form-control" id="exampleInputPassword1">
+                      <input type="password" class="form-control" id="exampleInputPassword1" name="password">
                     </div>
                     <div class="d-flex align-items-center justify-content-between mb-4">
                       <div class="form-check">
                         <input class="form-check-input primary" type="checkbox" value="" id="flexCheckChecked" checked>
                         <label class="form-check-label text-dark" for="flexCheckChecked">
-                          Remeber this Device
+                          Remember this Device
                         </label>
                       </div>
-                      <a class="text-primary fw-bold" href="./index.html">Forgot Password ?</a>
+                      <a class="text-primary fw-bold" href="#">Forgot Password ?</a>
                     </div>
-                    <a href="./index.html" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Sign In</a>
+                      <button type="submit" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Sign In</button>
                     <div class="d-flex align-items-center justify-content-center">
-                      <p class="fs-4 mb-0 fw-bold">New to Modernize?</p>
-                      <a class="text-primary fw-bold ms-2" href="./authentication-register.html">Create an account</a>
+                      <p class="fs-4 mb-0 fw-bold">Nouveau sur e-store?</p>
+                      <a class="text-primary fw-bold ms-2" href="{% url 'register' %}">Create an account</a>
                     </div>
                   </form>
                 {% endif %}
