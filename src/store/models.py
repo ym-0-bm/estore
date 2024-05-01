@@ -20,6 +20,8 @@ class CustomUser(AbstractUser):
         ('GS', 'Gestionnaire de Stock'),
         ('A', 'Admin'),
     ]
+    last_name = None
+    first_name = None
     role = models.CharField(max_length=2, choices=role_choices)
     profile = models.OneToOneField(Profile, on_delete=models.CASCADE, related_name='user_profile')
     groups = models.ManyToManyField(

@@ -3,12 +3,13 @@ from .models import CustomUser, Admin, Profile
 
 
 class AdminForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput)
-    confirm_password = forms.CharField(widget=forms.PasswordInput)
+#    password = forms.CharField(widget=forms.PasswordInput)
+#    confirm_password = forms.CharField(widget=forms.PasswordInput)
+    email = forms.CharField(widget=forms.EmailInput)
 
     class Meta:
         model = Profile
-        fields = ['username', 'email', 'password', 'nom', 'prenom', 'telephone']
+        fields = ['nom', 'prenom', 'telephone']
 
     def __init__(self, *args, **kwargs):
         super(AdminForm, self).__init__(*args, **kwargs)
